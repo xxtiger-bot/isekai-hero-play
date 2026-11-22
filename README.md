@@ -1,6 +1,6 @@
 # 异世界勇者 — playable preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `fb0bfc6` (2026-11-22, Asia/Seoul).
+Static production build of **异世界勇者** (idle HTML5), from source commit `560405b` (2026-11-23, Asia/Seoul). Screen shake and screen flash are removed.
 
 This repository contains only the built website, not the game source.
 
