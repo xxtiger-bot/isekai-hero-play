@@ -1,6 +1,6 @@
 # 异世界勇者 — playable preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `de04804` (2026-11-23, Asia/Seoul). Adds gems, goals, ads, lands, crafts, and class specs; screen shake stays off.
+Static production build of **异世界勇者** (idle HTML5), from source commit `c2d0cb3` (2026-11-23, Asia/Seoul). Attack animations and ink effects are drawn on the sprites; the camera stays still.
 
 This repository contains only the built website, not the game source.
 
