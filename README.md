@@ -1,6 +1,6 @@
 # 异世界勇者 — playable preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `55089734` (2026-11-25, Asia/Seoul). Higgsfield battle cutouts are included; hero stages are height-fit and monsters use their matching art.
+Static production build of **异世界勇者** (idle HTML5), from source commit `7e3aee39` (2026-11-25, Asia/Seoul). Gear outfits, skill VFX, and item icons are included; fighters stay opaque and sized correctly.
 
 This repository contains only the built website, not the game source.
 
