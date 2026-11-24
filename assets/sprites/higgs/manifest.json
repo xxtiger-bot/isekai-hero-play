@@ -1,0 +1,128 @@
+{
+  "format": "png",
+  "longestSide": 256,
+  "paddingPx": 6,
+  "has2x": false,
+  "sprites": [
+    {
+      "id": "hero_s1",
+      "file": "hero_s1.png",
+      "width": 196,
+      "height": 256,
+      "bytes": 60479,
+      "role": "hero stage 1"
+    },
+    {
+      "id": "hero_s2",
+      "file": "hero_s2.png",
+      "width": 192,
+      "height": 256,
+      "bytes": 86349,
+      "role": "hero stage 2"
+    },
+    {
+      "id": "hero_s3",
+      "file": "hero_s3.png",
+      "width": 218,
+      "height": 256,
+      "bytes": 83395,
+      "role": "hero stage 3"
+    },
+    {
+      "id": "hero_s4",
+      "file": "hero_s4.png",
+      "width": 204,
+      "height": 256,
+      "bytes": 92843,
+      "role": "hero stage 4"
+    },
+    {
+      "id": "hero_s5",
+      "file": "hero_s5.png",
+      "width": 256,
+      "height": 208,
+      "bytes": 89314,
+      "role": "hero stage 5"
+    },
+    {
+      "id": "pet_1",
+      "file": "pet_1.png",
+      "width": 254,
+      "height": 256,
+      "bytes": 92412,
+      "role": "pet"
+    },
+    {
+      "id": "pet_2",
+      "file": "pet_2.png",
+      "width": 230,
+      "height": 256,
+      "bytes": 98877,
+      "role": "pet"
+    },
+    {
+      "id": "pet_3",
+      "file": "pet_3.png",
+      "width": 256,
+      "height": 199,
+      "bytes": 54831,
+      "role": "pet"
+    },
+    {
+      "id": "mon_1",
+      "file": "mon_1.png",
+      "width": 256,
+      "height": 205,
+      "bytes": 73991,
+      "role": "monster"
+    },
+    {
+      "id": "mon_2",
+      "file": "mon_2.png",
+      "width": 256,
+      "height": 249,
+      "bytes": 101312,
+      "role": "monster"
+    },
+    {
+      "id": "mon_3",
+      "file": "mon_3.png",
+      "width": 237,
+      "height": 256,
+      "bytes": 91104,
+      "role": "monster"
+    },
+    {
+      "id": "mon_4",
+      "file": "mon_4.png",
+      "width": 256,
+      "height": 158,
+      "bytes": 58323,
+      "role": "monster"
+    },
+    {
+      "id": "mon_5",
+      "file": "mon_5.png",
+      "width": 195,
+      "height": 256,
+      "bytes": 76369,
+      "role": "monster"
+    },
+    {
+      "id": "mon_6",
+      "file": "mon_6.png",
+      "width": 256,
+      "height": 213,
+      "bytes": 82966,
+      "role": "monster"
+    },
+    {
+      "id": "boss_dragon",
+      "file": "boss_dragon.png",
+      "width": 256,
+      "height": 179,
+      "bytes": 77702,
+      "role": "boss"
+    }
+  ]
+}
