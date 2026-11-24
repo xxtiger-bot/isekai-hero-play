@@ -1,0 +1,43 @@
+name: Decode Higgs gear sprites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/_payloads/higgs-gear.tar.b64'
+      - '.github/workflows/decode-gear-sprites.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack hero, icon, and vfx sprites
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib, tarfile, io
+          payload = pathlib.Path('assets/_payloads/higgs-gear.tar.b64')
+          if not payload.exists():
+              raise SystemExit('missing payload')
+          data = base64.b64decode(payload.read_text().strip())
+          with tarfile.open(fileobj=io.BytesIO(data), mode='r') as tf:
+              tf.extractall(path='.')
+              for m in tf.getmembers():
+                  if m.isfile():
+                      print(m.name, m.size)
+          PY
+      - name: Commit sprites
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/sprites/higgs/hero assets/sprites/higgs/icons assets/sprites/higgs/vfx
+          if git diff --staged --quiet; then
+            echo "no sprite changes"
+            exit 0
+          fi
+          git commit -m "Add Higgsfield hero, icon, and vfx sprites for 7e3aee39 preview"
+          git push
