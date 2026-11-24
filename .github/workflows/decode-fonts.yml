@@ -1,0 +1,45 @@
+name: Decode subset fonts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/_payloads/**'
+      - '.github/workflows/decode-fonts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode woff2 payloads
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib, sys
+          root = pathlib.Path('assets/_payloads')
+          outdir = pathlib.Path('assets')
+          outdir.mkdir(exist_ok=True)
+          if not root.exists():
+              print('no payloads')
+              sys.exit(0)
+          for p in sorted(root.glob('*.woff2.b64')):
+              dest = outdir / p.name[:-4]
+              data = base64.b64decode(p.read_text().strip())
+              dest.write_bytes(data)
+              print(f'{dest} {len(data)}')
+          PY
+      - name: Commit fonts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/*.woff2
+          if git diff --staged --quiet; then
+            echo "no font changes"
+            exit 0
+          fi
+          git commit -m "Add self-hosted subset fonts for 0e48f630 preview"
+          git push
