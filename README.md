@@ -1,6 +1,6 @@
 # 异世界勇者 — playable preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `e180428` (2026-11-24, Asia/Seoul). Adds a wordless new-player guide and retunes the idle pace.
+Static production build of **异世界勇者** (idle HTML5), from source commit `0358869` (2026-11-24, Asia/Seoul). The guide hand now points at the tab that holds the next control.
 
 This repository contains only the built website, not the game source.
 
