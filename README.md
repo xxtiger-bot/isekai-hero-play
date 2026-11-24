@@ -1,6 +1,6 @@
 # 异世界勇者 — playable preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `0e48f630` (2026-11-25, Asia/Seoul). Browser back is wired, rewarded ads preload, and the brush fonts are self-hosted subsets in this build.
+Static production build of **异世界勇者** (idle HTML5), from source commit `55089734` (2026-11-25, Asia/Seoul). Higgsfield battle cutouts are included; hero stages are height-fit and monsters use their matching art.
 
 This repository contains only the built website, not the game source.
 
