@@ -1,0 +1,48 @@
+name: Decode Higgs bag and material icons
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/_payloads/higgs-icons2.tar.b64'
+      - '.github/workflows/decode-icons2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack bag slot and material icons
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib, tarfile, io
+          payload = pathlib.Path('assets/_payloads/higgs-icons2.tar.b64')
+          if not payload.exists():
+              raise SystemExit('missing payload')
+          data = base64.b64decode(payload.read_text().strip())
+          n = 0
+          with tarfile.open(fileobj=io.BytesIO(data), mode='r') as tf:
+              tf.extractall(path='.')
+              for m in tf.getmembers():
+                  if m.isfile():
+                      print(m.name, m.size)
+                      n += 1
+          print('unpacked', n, 'files')
+          if n != 9:
+              raise SystemExit(f'expected 9 files, got {n}')
+          PY
+      - name: Commit icons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/sprites/higgs/icons
+          if git diff --staged --quiet; then
+            echo "no icon changes"
+            exit 0
+          fi
+          git commit -m "Add bag slot and material icons for c567534f preview"
+          git push
