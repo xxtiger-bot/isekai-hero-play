@@ -2,7 +2,7 @@
 
 Playable HTML5 build published from the private Origin `main` branch.
 
-Source commit: `54ef7146674e7059469ada7eab37f7c37da4875a`  
-(“Play hero attack frames and replace the remaining ink monsters.”)
+Source commit: `7b047eff5194772e817982493ad83a97e2bd0888`  
+(“Play monster attack and hit frames from a shared anchor.” Includes the preceding still-stage / skill-icon commit `4a43d14`.)
 
 Open `index.html` from a SHA-pinned rawcdn.githack.com URL.
