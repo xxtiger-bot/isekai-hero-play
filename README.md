@@ -1,13 +1,8 @@
-# 异世界勇者 — playable preview
+# 异世界勇者 — public preview
 
-Static production build of **异世界勇者** (idle HTML5), from source commit `7e3aee39` (2026-11-25, Asia/Seoul). Gear outfits, skill VFX, and item icons are included; fighters stay opaque and sized correctly.
+Playable HTML5 build published from the private Origin `main` branch.
 
-This repository contains only the built website, not the game source.
+Source commit: `54ef7146674e7059469ada7eab37f7c37da4875a`  
+(“Play hero attack frames and replace the remaining ink monsters.”)
 
-**Play now:**
-
-https://rawcdn.githack.com/xxtiger-bot/isekai-hero-play/main/index.html
-
-If you enable GitHub Pages on this repo (Settings → Pages → Deploy from branch `main` / root), it will also be at:
-
-https://xxtiger-bot.github.io/isekai-hero-play/
+Open `index.html` from a SHA-pinned rawcdn.githack.com URL.
