@@ -1,0 +1,64 @@
+name: Decode Higgs anim and monster sprites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/_payloads/higgs-anim-h1.tar.b64'
+      - 'assets/_payloads/higgs-anim-h2.tar.b64'
+      - 'assets/_payloads/higgs-anim-h3.tar.b64'
+      - 'assets/_payloads/higgs-anim-monsters2.tar.b64'
+      - '.github/workflows/decode-anim-sprites.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack hero animation frames and monsters2 sprites
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib, tarfile, io, sys
+          names = [
+              'higgs-anim-h1.tar.b64',
+              'higgs-anim-h2.tar.b64',
+              'higgs-anim-h3.tar.b64',
+              'higgs-anim-monsters2.tar.b64',
+          ]
+          payloads = [pathlib.Path('assets/_payloads') / n for n in names]
+          missing = [p.name for p in payloads if not p.exists()]
+          if missing:
+              print('waiting for payloads:', ', '.join(missing))
+              sys.exit(0)
+          n = 0
+          for payload in payloads:
+              data = base64.b64decode(payload.read_text().strip())
+              with tarfile.open(fileobj=io.BytesIO(data), mode='r') as tf:
+                  tf.extractall(path='.')
+                  for m in tf.getmembers():
+                      if m.isfile():
+                          print(payload.name, m.name, m.size)
+                          n += 1
+          print('unpacked', n, 'files from', len(payloads), 'payloads')
+          if n != 71:
+              raise SystemExit(f'expected 71 files, got {n}')
+          PY
+      - name: Commit sprites
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ ! -d assets/sprites/higgs/anim ] || [ ! -d assets/sprites/higgs/monsters2 ]; then
+            echo "payloads not complete yet"
+            exit 0
+          fi
+          git add assets/sprites/higgs/anim assets/sprites/higgs/monsters2
+          if git diff --staged --quiet; then
+            echo "no sprite changes"
+            exit 0
+          fi
+          git commit -m "Add Higgsfield hero animation frames and monsters2 sprites for 54ef7146 preview"
+          git push
