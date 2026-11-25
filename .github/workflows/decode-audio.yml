@@ -1,0 +1,64 @@
+name: Decode Higgs audio assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/_payloads/higgs-audio-bgm-battle.tar.b64'
+      - 'assets/_payloads/higgs-audio-bgm-boss.tar.b64'
+      - 'assets/_payloads/higgs-audio-bgm-town.tar.b64'
+      - 'assets/_payloads/higgs-audio-sfx.tar.b64'
+      - '.github/workflows/decode-audio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack BGM and SFX
+        run: |
+          python3 - <<'PY'
+          import base64, pathlib, tarfile, io, sys
+          names = [
+              'higgs-audio-bgm-battle.tar.b64',
+              'higgs-audio-bgm-boss.tar.b64',
+              'higgs-audio-bgm-town.tar.b64',
+              'higgs-audio-sfx.tar.b64',
+          ]
+          payloads = [pathlib.Path('assets/_payloads') / n for n in names]
+          missing = [p.name for p in payloads if not p.exists()]
+          if missing:
+              print('waiting for payloads:', ', '.join(missing))
+              sys.exit(0)
+          n = 0
+          for payload in payloads:
+              data = base64.b64decode(payload.read_text().strip())
+              with tarfile.open(fileobj=io.BytesIO(data), mode='r') as tf:
+                  tf.extractall(path='.')
+                  for m in tf.getmembers():
+                      if m.isfile():
+                          print(payload.name, m.name, m.size)
+                          n += 1
+          print('unpacked', n, 'files from', len(payloads), 'payloads')
+          if n != 46:
+              raise SystemExit(f'expected 46 files, got {n}')
+          PY
+      - name: Commit audio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ ! -d audio/bgm ] || [ ! -d audio/sfx ]; then
+            echo "payloads not complete yet"
+            exit 0
+          fi
+          git add audio/bgm audio/sfx
+          if git diff --staged --quiet; then
+            echo "no audio changes"
+            exit 0
+          fi
+          git commit -m "Add recorded BGM and SFX audio for 2ce5c899 preview"
+          git push
